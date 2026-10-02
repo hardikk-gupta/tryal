@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baaz — After Hours</title>
+    <meta name="description" content="Bajkamal Singh (Baaz) — creative director & growth marketer from Delhi. A portfolio told as one night shift, 20:00 to 06:00." />
+    <meta name="theme-color" content="#051024" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A2BF5'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial Black,Arial' font-weight='900' font-size='38' fill='%23F1ECE2'%3EB%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Caveat:wght@500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preload" as="image" href="/assets/media/portrait-cutout.webp" />
+  </head>
+  <body class="is-loading">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Preloader: the shift is about to start -->
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader__inner">
+        <p class="loader__kicker mono">Night shift · Delhi</p>
+        <p class="loader__clock"><span id="loader-hh">19</span><span class="loader__colon">:</span><span id="loader-mm">00</span></p>
+        <div class="loader__bar"><span id="loader-bar"></span></div>
+        <p class="loader__note hand">clocking in…</p>
+      </div>
+    </div>
+
+    <!-- Custom cursor (fine pointers only) -->
+    <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__label" id="cursor-label"></span></div>
+
+    <!-- Top bar -->
+    <header class="topbar" id="topbar">
+      <a href="#hero" class="brand" aria-label="Baaz — back to top">
+        <span class="brand__mark">B</span>
+        <span class="brand__text"><b>Baaz</b><i>Structured Arts</i></span>
+      </a>
+      <nav class="nav" aria-label="Chapters">
+        <a href="#origin" data-cursor="Go">Origin</a>
+        <a href="#hustle" data-cursor="Go">Hustle</a>
+        <a href="#cases" data-cursor="Go">Best work</a>
+        <a href="#wall" data-cursor="Go">Visuals</a>
+        <a href="#contact" data-cursor="Go">Contact</a>
+      </nav>
+      <button class="sound-toggle mono" id="sound-toggle" type="button" aria-pressed="false">
+        <span class="sound-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-toggle__text">Sound off</span>
+      </button>
+    </header>
+
+    <!-- Night clock HUD: scroll position mapped onto 20:00 → 06:00 -->
+    <aside class="hud is-hidden" id="hud" aria-label="Night shift progress">
+      <svg class="hud__dial" viewBox="0 0 44 44" aria-hidden="true">
+        <circle cx="22" cy="22" r="19" class="hud__track" />
+        <circle cx="22" cy="22" r="19" class="hud__fill" id="hud-fill" pathLength="100" />
+        <circle cx="22" cy="3" r="2.6" class="hud__moon" id="hud-moon" />
+      </svg>
+      <div class="hud__read">
+        <span class="hud__time mono" id="hud-time">20:00</span>
+        <span class="hud__label" id="hud-label">Clock in</span>
+      </div>
+    </aside>
+
+    <main id="main">
+      <!-- ============ 20:00 · HERO ============ -->
+      <section class="hero" id="hero" data-chapter="hero">
+        <div class="hero__grid" aria-hidden="true"></div>
+
+        <div class="hero__meta mono">
+          <span>Vol. 2026</span>
+          <span>Bajkamal Singh <em>aka</em> Baaz</span>
+          <span id="ist-clock">Delhi --:--:--</span>
+        </div>
+
+        <h1 class="hero__word" aria-label="Baaz">
+          <span class="hero__letter" data-l="B">B</span><span class="hero__letter" data-l="A">A</span><span class="hero__letter" data-l="A">A</span><span class="hero__letter" data-l="Z">Z</span>
+        </h1>
+
+        <figure class="hero__portrait">
+          <img src="/assets/media/portrait-cutout.webp" alt="Bajkamal Singh, seen from behind, outlined in electric blue" width="1200" height="1200" fetchpriority="high" />
+        </figure>
+
+        <p class="hero__claim" id="hero-claim" data-cursor="Align">
+          <span>I</span> <span>intentionally</span> <span>make</span> <span class="hl">misalignment</span> <span>look</span> <span>intentional.</span>
+        </p>
+
+        <figure class="hero__monitor" data-cursor="Play">
+          <div class="hero__monitor-screen">
+            <video id="hero-reel" src="/assets/media/reel.mp4" poster="/assets/media/reel-poster.jpg" muted loop playsinline preload="metadata" aria-label="Showreel loop"></video>
+            <span class="rec mono"><i></i>REC</span>
+            <span class="tc mono" id="reel-tc">00:00:00</span>
+          </div>
+          <figcaption class="mono">Cam A · creative by night, <em>more creative by midnight.</em></figcaption>
+        </figure>
+
+        <ol class="hero__roles" aria-label="Career so far">
+          <li><small class="mono">Started as</small><s>Designer</s></li>
+          <li><small class="mono">Became</small><s>Artist Manager</s></li>
+          <li><small class="mono">Currently</small><strong>Creative Director</strong></li>
+        </ol>
+
+        <div class="hero__foot mono">
+          <span>SRCC '27 · Delhi, India</span>
+          <span class="hero__scroll">Go on, scroll down <i aria-hidden="true">↓</i></span>
+        </div>
+      </section>
+
+      <!-- ============ 21:30 · ORIGIN ============ -->
+      <section class="origin" id="origin" data-chapter="origin">
+        <header class="chapter-head">
+          <span class="chapter-head__time mono">21:30</span>
+          <span class="chapter-head__name">01 — Origin</span>
+          <span class="chapter-head__note hand">how it all started.</span>
+        </header>
+
+        <div class="origin__lead">
+          <p class="scrub-text" id="origin-scrub">I started making creative stuff four years ago because I wanted to buy some sneakers <em>on my own.</em></p>
+
+          <figure class="polaroid" data-cursor="Hi">
+            <span class="tape tape--tl" aria-hidden="true"></span>
+            <img src="/assets/media/polaroid.webp" alt="Bajkamal Singh in a turban and glasses, pointing at the camera" loading="lazy" width="960" height="1200" />
+            <figcaption class="hand">bajkamal · early phase</figcaption>
+          </figure>
+        </div>
+
+        <div class="origin__story">
+          <p>I had no idea what a ‘marketing strategy’ was in 9th grade. I was just making YouTube thumbnails and taking whatever freelance gigs I could find through Insta &amp; Discord…</p>
+          <p>I didn't know what a “value proposition” was. I kept making things because I liked seeing them work.</p>
+        </div>
+
+        <ol class="origin__steps">
+          <li><span class="mono">i.</span>It started as making things.</li>
+          <li><span class="mono">ii.</span>Then it became a way of thinking.</li>
+          <li><span class="mono">iii.</span>Strategy came later.</li>
+        </ol>
+
+        <div class="stats" id="stats">
+          <p class="stats__kicker hand">things that happened — crazy what happens when you just make weirdly creative stuff.</p>
+          <ul class="stats__list" id="stats-list"></ul>
+        </div>
+
+        <div class="philosophy">
+          <div class="philosophy__card">
+            <span class="mono">Core philosophy</span>
+            <h2>Art with a <em>purpose.</em></h2>
+            <p>I am an artist at heart. I obsess over aesthetics, but I love it even more when my art actually makes people feel something and take action.</p>
+            <span class="stamp" aria-hidden="true">beautiful design<br />that actually works</span>
+          </div>
+          <blockquote class="philosophy__quote">
+            <p>“If I ever write a book on how I see creativity, it will have <em>infinite pages.</em> And I'll still be figuring it out.”</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- ============ 23:00 · HUSTLE ============ -->
+      <section class="hustle" id="hustle" data-chapter="hustle">
+        <header class="chapter-head">
+          <span class="chapter-head__time mono">23:00</span>
+          <span class="chapter-head__name">02 — One yes led to the next</span>
+          <span class="chapter-head__note hand">places I've hustled at.</span>
+        </header>
+
+        <div class="hustle__layout">
+          <div class="hustle__copy">
+            <p class="hustle__big">Founding Marketer at <b>RNTL.</b></p>
+            <p>Interned at Grimbyte, MusicVerse, Sinskari, Frost &amp; Sullivan &amp; Blue Tea. Grew an artist's community from scratch to <b>200K+ followers</b>, and pulled off a wild campus launch for a <b>JioHotstar</b> show.</p>
+            <p class="hand hustle__ps">PS — the goal is simple: find artists and brands making incredible things, and help them grow using our respective arts.</p>
+            <div class="deck-controls">
+              <button type="button" class="btn-round" id="deck-prev" aria-label="Previous card">←</button>
+              <span class="mono" id="deck-count" aria-live="polite">01 / 04</span>
+              <button type="button" class="btn-round" id="deck-next" aria-label="Next card">→</button>
+            </div>
+            <p class="mono hustle__hint">Drag the top card away — or use ← →</p>
+          </div>
+          <div class="deck" id="deck" role="region" aria-roledescription="carousel" aria-label="Internships"></div>
+        </div>
+      </section>
+
+      <!-- ============ 00:30 · CASE FILES ============ -->
+      <section class="cases" id="cases" data-chapter="cases">
+        <div class="cases__pin">
+          <div class="cases__track" id="cases-track">
+            <div class="cases__intro">
+              <span class="chapter-head__time mono">00:30</span>
+              <h2>Best<br /><em>work.</em></h2>
+              <p>Five case files from the late shift. Each one started with a real problem and ended with a number. Open any of them.</p>
+              <span class="mono cases__hint">Keep scrolling →</span>
+            </div>
+            <!-- case cards injected -->
+          </div>
+          <div class="cases__progress" aria-hidden="true"><span id="cases-progress"></span></div>
+        </div>
+      </section>
+
+      <!-- ============ 02:45 · INSOMNIAC WALL ============ -->
+      <section class="wall-section" id="wall" data-chapter="wall">
+        <header class="wall-head">
+          <div>
+            <span class="chapter-head__time mono">02:45</span>
+            <h2>Insomniac <em>work.</em></h2>
+          </div>
+          <div class="wall-head__filters" role="group" aria-label="Filter visuals" id="wall-filters"></div>
+        </header>
+        <div class="wall" id="wall-canvas" data-cursor="Drag" tabindex="0" aria-label="Wall of visual work. Drag to explore, or use arrow keys. Press Enter on a piece to open it.">
+          <div class="wall__inner" id="wall-inner"></div>
+          <p class="wall__hint mono" aria-hidden="true">drag around · click to open</p>
+        </div>
+      </section>
+
+      <!-- ============ 05:30 · CONTACT ============ -->
+      <section class="contact" id="contact" data-chapter="contact">
+        <div class="contact__sky" aria-hidden="true"></div>
+        <span class="chapter-head__time mono">05:30 — clocking out</span>
+        <h2 class="contact__title">Say hi<br /><em>before overthinking it.</em></h2>
+        <p class="contact__lead">Ready to make a move? Drop an email to discuss internships, collaborations, or just to say hi.</p>
+        <a class="contact__mail" id="mail-link" href="#" data-cursor="Write">
+          <span class="contact__mail-text">bajkamalsingh1@gmail.com</span>
+          <span class="contact__mail-arrow" aria-hidden="true">↗</span>
+        </a>
+        <p class="mono contact__small">(opens your mail app — no forms, no friction)</p>
+        <ul class="contact__links">
+          <li><a href="https://www.instagram.com/bajkamal07/" target="_blank" rel="noopener noreferrer" data-cursor="Open">Instagram</a></li>
+          <li><a href="https://www.linkedin.com/in/bajkamalsingh/" target="_blank" rel="noopener noreferrer" data-cursor="Open">LinkedIn</a></li>
+          <li><button type="button" id="copy-mail" data-cursor="Copy">Copy email</button></li>
+        </ul>
+        <footer class="footer">
+          <p class="hand footer__bye">Bye, have a great day at your job. Hoping you get more creative portfolios to look at.</p>
+          <div class="footer__row mono">
+            <span>© 2026 Bajkamal Singh (Baaz)</span>
+            <span>06:00 — shift over</span>
+            <a href="#hero">Back to 20:00 ↑</a>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <!-- Case file dialog -->
+    <dialog class="case-dialog" id="case-dialog" aria-labelledby="case-title">
+      <div class="case-dialog__scroll" data-lenis-prevent>
+        <button type="button" class="case-dialog__close" id="case-close" aria-label="Close case file" data-cursor="Close">Close file <span aria-hidden="true">✕</span></button>
+        <article class="case" id="case-body"></article>
+      </div>
+    </dialog>
+
+    <!-- Lightbox -->
+    <dialog class="lightbox" id="lightbox" aria-label="Visual work viewer">
+      <button type="button" class="lightbox__close" id="lb-close" aria-label="Close">✕</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" id="lb-prev" aria-label="Previous piece">←</button>
+      <figure class="lightbox__fig">
+        <img id="lb-img" alt="" />
+        <figcaption><span id="lb-title"></span><span class="mono" id="lb-count"></span></figcaption>
+      </figure>
+      <button type="button" class="lightbox__nav lightbox__nav--next" id="lb-next" aria-label="Next piece">→</button>
+    </dialog>
+
+    <div class="toast mono" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/js/main.js"></script>
+  </body>
+</html>

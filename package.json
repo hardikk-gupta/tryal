@@ -1,0 +1,19 @@
+{
+  "name": "after-hours-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "After Hours — a night-shift portfolio for Bajkamal Singh (Baaz). Study rebuild.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26"
+  },
+  "devDependencies": {
+    "vite": "^8.3.2"
+  }
+}
