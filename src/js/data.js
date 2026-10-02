@@ -104,7 +104,7 @@ export const cases = [
     sub: 'A personal AI assistant that works like a friend with a good memory. Say a thought, share a screenshot, scan a page, and Alter sorts it into notes, memories and to-dos. Native Android, local-first, powered by Gemini.',
     tags: ['Android', 'Kotlin + Compose', 'Latest Gemini'],
     stat: ['1', 'place to put anything'],
-    theme: { bg: '#FFD44E', fg: '#111111', accent: '#111111' },
+    theme: { bg: '#FFD44E', fg: '#131316', accent: '#FAFAF8' },
     cover: A('cases/alter/x_home.webp'),
     story: [
       ['The problem', 'A new AI tool shows up every week and each one does one thing. Notes here, transcription there, chat somewhere else. <b>You end up remembering which tool holds which thought</b>, and none of them remember you.'],
@@ -131,7 +131,7 @@ export const cases = [
     sub: 'Pick a garment care, fill a bag, choose a pickup slot, and see which stage your clothes are in. Borrowed from delivery apps, rebuilt for a round trip that takes days.',
     tags: ['UX + UI', 'Design system', 'Figma prototype'],
     stat: ['3', 'browse · compare · book'],
-    theme: { bg: '#A9DEFF', fg: '#06244A', accent: '#0A2BF5' },
+    theme: { bg: '#A9DEFF', fg: '#131316', accent: '#FFD44E' },
     cover: A('cases/washio/wf_home.webp'),
     story: [
       ['The problem', 'In smaller cities there is no one place to find a laundry. You ask around, or <b>you don’t find one at all</b>.'],
@@ -163,7 +163,7 @@ export const cases = [
     sub: 'Voice, receipt scan, and a home-screen widget you can log from without opening the app. Built because every tracker asks you to stop mid-purchase and file paperwork for a ₹40 chai.',
     tags: ['Android', 'Widget', 'Voice input', 'Live'],
     stat: ['₹40', 'chai, logged from the widget'],
-    theme: { bg: '#B4F6B8', fg: '#0B2A12', accent: '#0B2A12' },
+    theme: { bg: '#B4F6B8', fg: '#131316', accent: '#FFD44E' },
     cover: A('cases/trackit/t_home.webp'),
     story: [
       ['The problem', 'Every expense app I tried wanted <b>six taps and a category dropdown</b> to log a ₹40 chai. Friction was the product killer, not the feature gap.'],
@@ -190,7 +190,7 @@ export const cases = [
     sub: 'The shopkeeper says the order out loud, in Hindi, Hinglish or English, and Parchi turns it into a receipt: item, quantity, price, total. Then print it, or share it straight to WhatsApp.',
     tags: ['Android', 'Kotlin + Compose', 'Voice billing'],
     stat: ['5', 'versions reshaped'],
-    theme: { bg: '#E7BBFF', fg: '#2A0B3D', accent: '#6A1FB0' },
+    theme: { bg: '#E7BBFF', fg: '#131316', accent: '#FFD44E' },
     story: [
       ['The problem', 'At a kirana counter the queue doesn’t wait. <b>Writing a bill by hand, or tapping through a menu, is the slow part.</b>'],
       ['How I got there', 'I designed the flow and directed Google AI Studio to build it in Kotlin and Jetpack Compose, reshaping it across five versions.'],
@@ -207,7 +207,7 @@ export const cases = [
     sub: 'A visual focus tracker that turns deep work into falling sand, a daily heatmap and long-term momentum. Built around a 25-minute hourglass that flips and keeps going.',
     tags: ['Android', 'Kotlin + Compose', 'Widget', 'In daily use'],
     stat: ['25', 'minute hourglass'],
-    theme: { bg: '#0E140F', fg: '#E9FFE6', accent: '#7CFF6B' },
+    theme: { bg: '#131316', fg: '#FAFAF8', accent: '#B4F6B8' },
     cover: A('cases/hourbit/hb_home.webp'),
     story: [
       ['The problem', 'Focus timers ask you to care about <b>this one session</b>. What keeps me going is the streak.'],

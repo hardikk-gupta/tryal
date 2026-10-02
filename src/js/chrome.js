@@ -3,7 +3,7 @@ import { chapters } from './data.js';
 
 const SHIFT_START = 20 * 60; // 20:00
 const SHIFT_END = 30 * 60; // 06:00 the next morning
-const DARK = new Set(['origin', 'cases', 'wall', 'contact']);
+const DARK = new Set(['origin', 'cases', 'wall']);
 
 const pad = (n) => String(n).padStart(2, '0');
 const toMinutes = (hhmm) => {

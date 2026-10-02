@@ -3,7 +3,7 @@
 The portfolio of **Hardik Gupta**, UI/UX and visual designer in Bangalore. He designs apps and websites end to end, then builds them in code.
 All copy, project data and imagery come from [hardik-gupta.com](https://hardik-gupta.com/). The layout, motion and code here are new.
 
-> **Concept.** The whole site is one night shift, from **20:00 to 06:00**. Each chapter is stamped with a time. A HUD dial in the corner turns scroll position into the time of night, matching each chapter's timestamp exactly, and the page ends on a dawn gradient when you "clock out".
+> **Concept.** The whole site is one night shift, from **20:00 to 06:00**. Each chapter is stamped with a time. A HUD dial in the corner turns scroll position into the time of night, matching each chapter's timestamp exactly, and the page ends on a light "dawn" made of the four pillar colours when you clock out.
 
 | Time  | Chapter         | Interaction |
 |-------|-----------------|-------------|
@@ -20,7 +20,7 @@ All copy, project data and imagery come from [hardik-gupta.com](https://hardik-g
 - **GSAP + ScrollTrigger** for the pinned track, scrubs, the deck physics and the intro
 - **Lenis** for smooth scroll, synced to the GSAP ticker
 - **Web Audio**, opt-in: every sound is synthesized, with no audio files
-- Fonts: Big Shoulders Display, Instrument Serif, Inter Tight, JetBrains Mono, Caveat
+- **Hardik's own design system**, as used on hardik-gupta.com: neutral ink `#131316` on `#FAFAF8`, with colour coming only from the four pillars (yellow `#FFD44E`, violet `#E7BBFF`, green `#B4F6B8`, blue `#A9DEFF`). Self-hosted Satoshi (headings and body), Geist Pixel (labels and clock) and Missing Lovely (handwritten accents).
 
 ## Details worth noting
 
@@ -52,4 +52,5 @@ src/js/wall.js        infinite visuals wall + lightbox
 src/js/sound.js       Web Audio synth
 src/styles/main.css   design tokens + all styles
 public/assets/        me/, cases/, wall/, monitor/
+public/fonts/         Satoshi, Geist Pixel, Missing Lovely (woff2)
 ```
