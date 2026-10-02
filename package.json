@@ -1,9 +1,9 @@
 {
-  "name": "after-hours-portfolio",
+  "name": "hardik-after-hours",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "After Hours — a night-shift portfolio for Bajkamal Singh (Baaz). Study rebuild.",
+  "description": "After Hours — a night-shift portfolio for Hardik Gupta, UI/UX & visual designer.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

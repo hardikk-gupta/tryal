@@ -2,64 +2,47 @@ import { gsap } from 'gsap';
 import { cases } from './data.js';
 import { play } from './sound.js';
 
-// A small, abstract funnel used as the Sinskari folder cover.
-const miniFunnel = `
-  <svg class="mini-funnel" viewBox="0 0 320 220" role="img" aria-label="Sketch of the email funnel: one entry splitting into four automated lanes">
-    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <rect x="120" y="8" width="80" height="26" rx="6" fill="currentColor"/>
-      <path d="M160 34v22M160 56H40v20M160 56h-40v20M160 56h40v20M160 56h120v20"/>
-      ${[40, 120, 200, 280]
-        .map(
-          (x, i) => `
-        <rect x="${x - 30}" y="76" width="60" height="22" rx="5"/>
-        ${Array.from({ length: [1, 2, 4, 3][i] }, (_, j) => `<path d="M${x} ${98 + j * 26}v8"/><rect x="${x - 24}" y="${106 + j * 26}" width="48" height="14" rx="4" fill="currentColor" opacity="${0.85 - j * 0.15}"/>`).join('')}`,
-        )
-        .join('')}
-    </g>
-  </svg>`;
+// Parchi has no screenshots on the source site, so its cover is drawn: a
+// spoken order on top, the receipt it becomes underneath.
+const receipt = `
+  <span class="receipt" role="img" aria-label="Illustration: a spoken order turning into a printed receipt">
+    <span class="receipt__voice"><i></i><i></i><i></i><i></i><i></i><b>Listening…</b></span>
+    <span class="receipt__paper">
+      <span class="receipt__head">PARCHI · bill</span>
+      <span class="receipt__row"><span>Item</span><span>Qty</span><span>₹</span></span>
+      <span class="receipt__row"><span>— — — —</span><span>2</span><span>— —</span></span>
+      <span class="receipt__row"><span>— — —</span><span>1</span><span>— —</span></span>
+      <span class="receipt__row"><span>— — — — —</span><span>3</span><span>— —</span></span>
+      <span class="receipt__total"><span>Total</span><span>— — —</span></span>
+      <span class="receipt__share">Print · WhatsApp</span>
+    </span>
+  </span>`;
 
 function fileHTML(c, i) {
-  const media = c.cover
-    ? `<img src="${c.cover}" alt="" loading="lazy" decoding="async" />`
-    : miniFunnel;
+  const media = c.cover ? `<img src="${c.cover}" alt="" loading="lazy" decoding="async" />` : receipt;
   return `
     <button type="button" class="file" data-index="${i}" data-no="FILE ${c.no}" data-cursor="Open file"
       style="--bg:${c.theme.bg};--fg:${c.theme.fg};--accent:${c.theme.accent}"
-      aria-haspopup="dialog" aria-label="Open case file ${c.no}: ${c.title}, ${c.client}">
-      <span class="file__head">
-        <span class="mono file__client">${c.client}</span>
-        ${c.logo ? `<img class="file__logo" src="${c.logo}" alt="" loading="lazy" />` : ''}
-      </span>
+      aria-haspopup="dialog" aria-label="Open case study ${c.no}: ${c.title}, ${c.kind}">
+      <span class="file__head"><span class="mono file__client">${c.kind}</span></span>
       <span class="file__title">${c.title}</span>
       <span class="file__tags">${c.tags
         .slice(0, 3)
         .map((t) => `<span>${t}</span>`)
         .join('')}</span>
-      <span class="file__media ${c.cover ? '' : 'file__media--diagram'}">${media}</span>
+      <span class="file__media ${c.cover ? 'file__media--phone' : 'file__media--drawn'}">${media}</span>
       <span class="file__foot">
         <span class="file__stat"><b>${c.stat[0]}</b><span>${c.stat[1]}</span></span>
-        <span class="file__open">Open file →</span>
+        <span class="file__open">Read the case →</span>
       </span>
     </button>`;
 }
 
 const block = (inner, cls = '') => `<section class="case__block ${cls}">${inner}</section>`;
 const kicker = (t) => `<span class="case__kicker mono">${t}</span>`;
-const statement = (s) =>
-  `${kicker(s.kicker)}<h3 class="case__head">${s.head}</h3>${s.body ? `<p class="case__body">${s.body}</p>` : ''}${
-    s.list ? `<ul class="case__list">${s.list.map((l) => `<li>${l}</li>`).join('')}</ul>` : ''
-  }`;
-const moves = (list, title = 'The moves') =>
-  block(`${kicker(title)}<ol class="moves">${list.map(([h, p]) => `<li><h4>${h}</h4><p>${p}</p></li>`).join('')}</ol>`);
-const metrics = (list, title = 'Impact') =>
-  block(
-    `${kicker(title)}<ul class="metrics">${list
-      .map(([n, l, s]) => `<li><b>${n}</b><span>${l}</span>${s ? `<small>${s}</small>` : ''}</li>`)
-      .join('')}</ul>`,
-  );
-const shots = (list, cls = '') =>
-  `<div class="shots ${cls}">${list
-    .map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" decoding="async" /><figcaption>${alt}</figcaption></figure>`)
+const screensRail = (list, cls = '') =>
+  `<div class="rail ${cls}">${list
+    .map(([src, alt]) => `<figure><img src="${src}" alt="${alt}" loading="lazy" decoding="async" /><figcaption class="mono">${alt}</figcaption></figure>`)
     .join('')}</div>`;
 
 function caseHTML(c, i) {
@@ -67,90 +50,24 @@ function caseHTML(c, i) {
   parts.push(`
     <header>
       <div class="case__overline mono">
-        <span>File ${c.no} / ${String(cases.length).padStart(2, '0')}</span><span>·</span><span>${c.role}</span>
-        ${c.logo ? `<img src="${c.logo}" alt="${c.client} logo" />` : ''}
+        <span>File ${c.no} / ${String(cases.length).padStart(2, '0')}</span><span>·</span><span>${c.kind}</span>
       </div>
       <h2 class="case__title" id="case-title">${c.title}</h2>
       <p class="case__sub">${c.sub}</p>
       <ul class="case__tags">${c.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
     </header>`);
 
-  if (c.answer) {
-    parts.push(block(`<div class="case__split"><div>${statement(c.problem)}</div><div>${statement(c.answer)}</div></div>`));
-  } else {
-    parts.push(block(statement(c.problem)));
-  }
+  // Problem → route → decision → regret, as four numbered panels.
+  parts.push(
+    block(`<ol class="story">${c.story
+      .map(([h, p], k) => `<li class="story__item${k === 2 ? ' is-key' : ''}"><span class="mono">0${k + 1}</span><h3>${h}</h3><p>${p}</p></li>`)
+      .join('')}</ol>`),
+  );
 
-  if (c.episodes) {
-    parts.push(
-      block(`${kicker('RNTL. Spotlight — ' + c.episodesNote)}
-        <div class="episodes">${c.episodes
-          .map(
-            ([name, meta, src], k) =>
-              `<figure><img src="${src}" alt="${name}, RNTL. Spotlight episode ${k + 1}" loading="lazy" /><span class="ep-no mono">EP. ${k + 1}</span><figcaption><b>${name}</b><span>${meta}</span></figcaption></figure>`,
-          )
-          .join('')}</div>`),
-    );
-  }
+  if (c.screens) parts.push(block(`${kicker('The screens')}${screensRail(c.screens)}`));
+  else parts.push(block(`${kicker('The flow')}<div class="case__drawn">${receipt}</div>`));
 
-  if (c.funnel) {
-    const f = c.funnel;
-    parts.push(
-      block(`${kicker('Automated email funnel — designed from scratch')}
-        <div class="funnel">
-          <div class="funnel__entry">${f.entry.map((s) => `<span>${s}</span>`).join('<i>→</i>')}</div>
-          <div class="funnel__lanes">${f.lanes
-            .map(
-              (lane) => `
-              <div class="lane">
-                <span class="lane__when">${lane.when}</span>
-                ${lane.steps.map(([t, s]) => `<div class="lane__step"><b>${t}</b>${s}</div>`).join('')}
-                <span class="lane__exit">→ ${lane.exit}</span>
-              </div>`,
-            )
-            .join('')}</div>
-        </div>`),
-    );
-  }
-
-  if (c.moves) parts.push(moves(c.moves, c.id === 'signal' ? 'GTM execution phases' : c.id === 'histrionica' ? 'Executive roles' : 'The moves'));
-
-  if (c.pilot) {
-    parts.push(
-      block(`${kicker('Paid social')}<h3 class="case__head">${c.pilot.head}</h3><p class="case__body">${c.pilot.body}</p>
-        <div class="phases" style="margin-top:28px">${c.pilot.phases
-          .map(([p, t, src]) => `<figure><figcaption><span class="mono">${p}</span><span>${t}</span></figcaption><img src="${src}" alt="${t} ad set grid" loading="lazy" /></figure>`)
-          .join('')}</div>`),
-    );
-  }
-
-  if (c.metrics) parts.push(metrics(c.metrics));
-
-  if (c.statics) {
-    parts.push(
-      block(`${kicker('Visual archive — static campaigns')}${shots(
-        c.statics.map(([src, a, b]) => [src, `${a} — ${b}`]),
-      )}`),
-    );
-  }
-  if (c.reels) {
-    parts.push(
-      block(`${kicker('Video campaigns — views captured')}
-        <div class="reels">${c.reels
-          .map(([src, title, views, href]) => {
-            const inner = `<img src="${src}" alt="${title} reel cover" loading="lazy" /><b>${views}</b><span>${title}</span>`;
-            return href
-              ? `<a href="${href}" target="_blank" rel="noopener noreferrer" data-cursor="Watch">${inner}</a>`
-              : `<div>${inner}</div>`;
-          })
-          .join('')}</div>`),
-    );
-  }
-
-  if (c.gallery) {
-    const title = c.id === 'krishna' ? 'Visual evidence — platform ecosystem' : c.id === 'rntl' ? 'Teardown' : 'Visual evidence — live activation';
-    parts.push(block(`${kicker(title)}${shots(c.gallery, c.galleryStyle === 'phones' ? 'shots--phones' : c.id === 'rntl' ? 'shots--wide' : '')}`));
-  }
+  if (c.process) parts.push(block(`${kicker(c.process.title)}${screensRail(c.process.items, 'rail--process')}`));
 
   if (c.link) {
     parts.push(`<a class="case__link" href="${c.link[1]}" target="_blank" rel="noopener noreferrer">${c.link[0]} ↗</a>`);

@@ -95,7 +95,7 @@ export function initIstClock() {
     second: '2-digit',
     hour12: false,
   });
-  const tick = () => (el.textContent = `Delhi ${fmt.format(new Date())} IST`);
+  const tick = () => (el.textContent = `Bangalore ${fmt.format(new Date())} IST`);
   tick();
   setInterval(tick, 1000);
 }

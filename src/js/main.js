@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
-import { person } from './data.js';
+import { person, loaderLines } from './data.js';
 import { initSound, play } from './sound.js';
 import { initCursor } from './cursor.js';
 import { initChrome, initIstClock } from './chrome.js';
@@ -55,7 +55,7 @@ function initContact() {
   document.getElementById('copy-mail').addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(person.email);
-      say('Email copied — see you in the inbox');
+      say('Email copied — tell me what you’re building');
       play('chime');
     } catch {
       say(person.email);
@@ -92,6 +92,7 @@ async function runLoader() {
   const hh = document.getElementById('loader-hh');
   const mm = document.getElementById('loader-mm');
   const bar = document.getElementById('loader-bar');
+  const note = document.getElementById('loader-note');
 
   if (reduced) {
     await waitForEssentials();
@@ -103,13 +104,14 @@ async function runLoader() {
   const clock = { m: 0 };
   const tick = gsap.to(clock, {
     m: 60,
-    duration: 1.6,
-    ease: 'power2.inOut',
+    duration: 2,
+    ease: 'power1.inOut',
     onUpdate: () => {
       const m = Math.round(clock.m);
       hh.textContent = m === 60 ? '20' : '19';
       mm.textContent = String(m % 60).padStart(2, '0');
       bar.style.transform = `scaleX(${clock.m / 60})`;
+      note.textContent = loaderLines[Math.min(loaderLines.length - 1, Math.floor((clock.m / 60) * loaderLines.length))];
     },
   });
   await Promise.all([waitForEssentials(), tick.then()]);

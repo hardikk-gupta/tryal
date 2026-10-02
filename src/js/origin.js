@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { highlights } from './data.js';
+import { highlights, principles } from './data.js';
 
 // Wrap every word in a span, keeping inline elements (like <em>) intact.
 function splitWords(root) {
@@ -36,7 +36,7 @@ function renderStats() {
     .map(
       (h) => `
       <li>
-        <span class="stats__num" data-value="${h.value}" data-prefix="${h.prefix ?? ''}" data-suffix="${h.suffix ?? ''}">${h.prefix ?? ''}${h.value}${h.suffix ?? ''}</span>
+        <span class="stats__num" data-value="${h.value}" data-from="${h.from ?? 0}" data-prefix="${h.prefix ?? ''}" data-suffix="${h.suffix ?? ''}">${h.prefix ?? ''}${h.value}${h.suffix ?? ''}</span>
         <span class="stats__label">${h.label}</span>
         <span class="stats__note">${h.note}</span>
       </li>`,
@@ -45,8 +45,14 @@ function renderStats() {
   return [...list.querySelectorAll('.stats__num')];
 }
 
+function renderPrinciples() {
+  const list = document.getElementById('principles');
+  list.innerHTML = principles.map(([h, p]) => `<li><h3>${h}</h3><p>${p}</p></li>`).join('');
+}
+
 export function initOrigin({ reduced }) {
   const nums = renderStats();
+  renderPrinciples();
   if (reduced) return;
 
   // Scroll-scrubbed reading: words light up as you move through the line.
@@ -81,7 +87,7 @@ export function initOrigin({ reduced }) {
   // Counters roll up once, when the row first comes into view.
   nums.forEach((el) => {
     const target = Number(el.dataset.value);
-    const counter = { v: 0 };
+    const counter = { v: Number(el.dataset.from) };
     gsap.to(counter, {
       v: target,
       duration: 1.8,
@@ -89,6 +95,15 @@ export function initOrigin({ reduced }) {
       scrollTrigger: { trigger: el, start: 'top 90%', once: true },
       onUpdate: () => (el.textContent = `${el.dataset.prefix}${Math.round(counter.v)}${el.dataset.suffix}`),
     });
+  });
+
+  gsap.from('.principles li', {
+    y: 40,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.08,
+    ease: 'expo.out',
+    scrollTrigger: { trigger: '.principles', start: 'top 85%' },
   });
 
   gsap.from('.philosophy__card', {

@@ -1,9 +1,10 @@
 import { gsap } from 'gsap';
+import { monitorSlides } from './data.js';
 
 const pad = (n) => String(Math.floor(n)).padStart(2, '0');
 
-// "I intentionally make misalignment look intentional." — the words sit
-// slightly off-grid and snap into alignment when you hover (or every few
+// "I design apps & websites end to end, then build them in code." — the
+// words sit slightly off-grid and snap into alignment when you hover (or every few
 // seconds on touch screens).
 function initClaim(reduced) {
   const claim = document.getElementById('hero-claim');
@@ -11,7 +12,7 @@ function initClaim(reduced) {
   const words = [...claim.querySelectorAll('span')];
   const misalign = () => {
     words.forEach((w) => {
-      w.style.transform = `translate(${gsap.utils.random(-5, 5)}px, ${gsap.utils.random(-12, 12)}px) rotate(${gsap.utils.random(-6, 6)}deg)`;
+      w.style.transform = `translate(${gsap.utils.random(-3, 3)}px, ${gsap.utils.random(-6, 6)}px) rotate(${gsap.utils.random(-4, 4)}deg)`;
     });
   };
   const align = () => words.forEach((w) => (w.style.transform = 'none'));
@@ -27,22 +28,35 @@ function initClaim(reduced) {
   }
 }
 
-function initReel() {
-  const video = document.getElementById('hero-reel');
+// The hero "monitor" plays a slow slideshow of shipped work with a running
+// timecode, like footage from a desk camera.
+function initMonitor(reduced) {
+  const screen = document.getElementById('monitor');
+  if (!screen) return;
+  screen.innerHTML =
+    monitorSlides
+      .map(([src, alt], i) => `<img class="hero__slide${i === 0 ? ' is-on' : ''}" src="${src}" alt="${alt}" ${i ? 'loading="lazy"' : ''} />`)
+      .join('') + '<span class="rec mono"><i></i>REC</span><span class="tc mono" id="reel-tc">00:00:00</span>';
+  const slides = [...screen.querySelectorAll('.hero__slide')];
   const tc = document.getElementById('reel-tc');
-  if (!video) return;
-  const io = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
-      else video.pause();
-    },
-    { threshold: 0.2 },
-  );
-  io.observe(video);
-  video.addEventListener('timeupdate', () => {
-    const t = video.currentTime;
-    tc.textContent = `00:${pad(t)}:${pad((t % 1) * 24)}`;
-  });
+  let i = 0;
+  const t0 = performance.now();
+  let visible = true;
+  new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(screen);
+  if (!reduced) {
+    setInterval(() => {
+      if (!visible) return;
+      slides[i].classList.remove('is-on');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('is-on');
+    }, 3200);
+  }
+  const tick = () => {
+    const t = (performance.now() - t0) / 1000;
+    if (visible) tc.textContent = `00:${pad((t / 60) % 60)}:${pad(t % 60)}`;
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
 
 export function heroIntro() {
@@ -56,7 +70,7 @@ export function heroIntro() {
 
 export function initHero({ reduced }) {
   initClaim(reduced);
-  initReel();
+  initMonitor(reduced);
   if (reduced) return;
 
   // As the hero scrolls away the wordmark splits apart and the portrait sinks.
@@ -67,8 +81,9 @@ export function initHero({ reduced }) {
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.6 },
   });
   letters.forEach((l, i) => {
-    const dir = i < 2 ? -1 : 1;
-    tl.to(l, { xPercent: dir * (30 + Math.abs(1.5 - i) * 25), rotation: dir * 4, ease: 'none' }, 0);
+    const mid = (letters.length - 1) / 2;
+    const dir = i < mid ? -1 : 1;
+    tl.to(l, { xPercent: dir * (30 + Math.abs(mid - i) * 22), rotation: dir * 4, ease: 'none' }, 0);
   });
   tl.to('.hero__portrait img', { scale: 0.9, transformOrigin: '50% 100%', opacity: 0.4, ease: 'none' }, 0);
 
@@ -78,7 +93,8 @@ export function initHero({ reduced }) {
     window.addEventListener('pointermove', (e) => {
       if (window.scrollY > window.innerHeight) return;
       const nx = e.clientX / window.innerWidth - 0.5;
-      setters.forEach((set, i) => set(nx * (i - 1.5) * -18));
+      const mid = (setters.length - 1) / 2;
+      setters.forEach((set, i) => set(nx * (i - mid) * -14));
     });
   }
 }

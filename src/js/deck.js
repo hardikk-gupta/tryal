@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { internships } from './data.js';
+import { experience } from './data.js';
 import { play } from './sound.js';
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -7,22 +7,22 @@ const pad = (n) => String(n).padStart(2, '0');
 function cardHTML(item, i, total) {
   return `
     <article class="card" role="group" aria-roledescription="slide" aria-label="${i + 1} of ${total}: ${item.company}">
-      <div class="card__top mono"><span>${pad(i + 1)} / ${pad(total)}</span><span>${item.duration}</span></div>
+      <div class="card__top mono"><span>${pad(i + 1)} / ${pad(total)}</span><span>${item.year}</span></div>
       <h3 class="card__company">${item.company}</h3>
       <p class="card__role">${item.role}</p>
       <p class="card__desc">${item.desc}</p>
       <ul class="card__points">${item.points.map((p) => `<li>${p}</li>`).join('')}</ul>
-      <div class="card__stats">${item.stats.map(([n, l]) => `<div><b>${n}</b><span>${l}</span></div>`).join('')}</div>
+      <ul class="card__tags">${item.tags.map((t) => `<li>${t}</li>`).join('')}</ul>
     </article>`;
 }
 
-// A physical stack of index cards: drag the top one off (or use the
+// A physical stack of index cards — one per role: drag the top one off (or use the
 // buttons / arrow keys) and it slides to the back of the pile.
 export function initDeck({ reduced }) {
   const deck = document.getElementById('deck');
   const count = document.getElementById('deck-count');
-  const total = internships.length;
-  deck.innerHTML = internships.map((item, i) => cardHTML(item, i, total)).join('');
+  const total = experience.length;
+  deck.innerHTML = experience.map((item, i) => cardHTML(item, i, total)).join('');
   deck.tabIndex = 0;
 
   let order = [...deck.children]; // order[0] is on top

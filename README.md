@@ -1,20 +1,18 @@
-# After Hours — a night-shift portfolio
+# Hardik Gupta — After Hours
 
-A from-scratch rebuild of [bajkamalsingh.me](https://bajkamalsingh.me/) (Bajkamal Singh, "Baaz").
-The content and imagery come from the original site. The concept, layout, code and interactions are new.
+The portfolio of **Hardik Gupta**, UI/UX and visual designer in Bangalore. He designs apps and websites end to end, then builds them in code.
+All copy, project data and imagery come from [hardik-gupta.com](https://hardik-gupta.com/). The layout, motion and code here are new.
 
-> **Concept.** Baaz's line is *"creative by night, more creative by midnight."* So the whole site is one shift,
-> from **20:00 to 06:00**. Each chapter is stamped with a time. A HUD dial in the corner turns scroll position into
-> the time of night, and the page ends on a dawn gradient when you "clock out".
+> **Concept.** The whole site is one night shift, from **20:00 to 06:00**. Each chapter is stamped with a time. A HUD dial in the corner turns scroll position into the time of night, matching each chapter's timestamp exactly, and the page ends on a dawn gradient when you "clock out".
 
 | Time  | Chapter         | Interaction |
 |-------|-----------------|-------------|
-| 20:00 | Hero            | Split-letter wordmark that parts on scroll. The headline "I intentionally make misalignment look intentional" sits off-grid and snaps into alignment on hover. A showreel "monitor" with a live timecode. A live Delhi clock. |
-| 21:30 | Origin          | Scroll-scrubbed word reveal, taped polaroid, count-up stats, philosophy card |
-| 23:00 | Hustle          | A physical card deck of internships. Fling the top card away (pointer/touch), or use the buttons or arrow keys. |
-| 00:30 | Best work       | Five case files on a pinned horizontal track. Each one opens a full-screen themed dossier (problem → moves → metrics → evidence), with next-file navigation. The Sinskari email funnel is redrawn as four automated lanes. |
-| 02:45 | Insomniac work  | An endless, draggable poster wall with inertia and idle drift. It uses modulo-wrapped columns, so it never runs out. Category filters, keyboard panning, and a lightbox. |
-| 05:30 | Contact         | Dawn sky, pre-filled mailto, copy-to-clipboard |
+| 20:00 | Hero            | A split "HARDIK" wordmark that parts on scroll, behind a sticker-outlined cutout portrait. The headline "I design apps & websites end to end, then build them in code" sits off-grid and snaps into alignment on hover. A desk-cam "monitor" cycles through shipped work with a running timecode. A live Bangalore clock. |
+| 21:30 | Origin          | Commerce degree → designing products: a scroll-scrubbed word reveal, a taped polaroid, count-up stats, the "boring states" card, and four working principles |
+| 23:00 | Work history    | A physical card deck: Freelance, IDEX Media, Freelance designer, Velossalabs. Fling the top card away, or use the buttons or arrow keys. |
+| 00:30 | Case studies    | Alter, Washio, Track It, Parchi and Hourbit on a pinned horizontal track. Each opens a full-screen dossier in that app's colour: problem → route → key decision → what I'd fix, then the screens, the process (sketches/wireframes) and the source link. Parchi's voice-to-receipt flow is drawn. |
+| 02:45 | Everything else | An endless, draggable wall of branding, carousels, logos and websites, with inertia, idle drift, filters, keyboard panning and a lightbox |
+| 05:30 | Contact         | Dawn sky, mailto, a cal.com link, socials, copy-to-clipboard |
 
 ## Stack
 
@@ -26,7 +24,8 @@ The content and imagery come from the original site. The concept, layout, code a
 
 ## Details worth noting
 
-- **Performance.** I re-encoded the original ~140 MB of PNG, JPEG and MP4 to about 6 MB of WebP and H.264. The wall makes one `transform` write per tile per frame, and its loop sleeps while it's off-screen.
+- **Assets.** The portrait cutout was made with a BiRefNet segmentation model, plus a dilated-alpha "sticker" outline. The wall pieces were sliced automatically out of the collage boards on hardik-gupta.com by finding connected components in the alpha channel. Everything is WebP, about 2.5 MB in total.
+- **Performance.** The wall makes one `transform` write per tile per frame, and its loop sleeps while it's off-screen.
 - **Accessibility.** Native `<dialog>` with focus return, a skip link, and keyboard support for the deck, wall and lightbox. `prefers-reduced-motion` turns off pinning, scrubs, smooth scroll and the intro.
 - **Responsive.** On phones the case files stack vertically instead of pinning. On touch, the wall pans horizontally while vertical swipes still scroll the page.
 
@@ -42,17 +41,15 @@ npm run build    # static output in dist/ (relative base, deploys anywhere)
 
 ```
 index.html            semantic skeleton for every chapter
-src/js/data.js        all copy, metrics and asset paths
+src/js/data.js        all copy, case studies, wall items and asset paths
 src/js/main.js        boot: Lenis ↔ ScrollTrigger, loader, contact
 src/js/chrome.js      piecewise night-clock HUD, top bar theming, IST clock
-src/js/hero.js        wordmark, misalignment headline, reel timecode
-src/js/origin.js      word scrub, counters
-src/js/deck.js        draggable card stack
-src/js/cases.js       case-file cards, pinned track, dossier dialog
-src/js/wall.js        infinite poster wall + lightbox
+src/js/hero.js        wordmark, misalignment headline, monitor slideshow
+src/js/origin.js      word scrub, counters, principles
+src/js/deck.js        draggable work-history cards
+src/js/cases.js       case-study cards, pinned track, dossier dialog
+src/js/wall.js        infinite visuals wall + lightbox
 src/js/sound.js       Web Audio synth
 src/styles/main.css   design tokens + all styles
-public/assets/        optimised imagery (work, gallery, brand, media)
+public/assets/        me/, cases/, wall/, monitor/
 ```
-
-_All work, imagery and copy belong to Bajkamal Singh. This repo is a study rebuild._
